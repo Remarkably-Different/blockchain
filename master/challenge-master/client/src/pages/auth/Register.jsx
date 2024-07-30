@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../api/apiConfig'
+import { ethers } from 'ethers'
 
 export default function Register() {
     const navigate = useNavigate()
@@ -8,6 +9,7 @@ export default function Register() {
     const first_name = useRef()
     const last_name = useRef()
     const email = useRef()
+    const ether_address = useRef()
     const password = useRef()
     const password2 = useRef(undefined)
 
@@ -18,10 +20,19 @@ export default function Register() {
             first_name: first_name.current.value,
             last_name: last_name.current.value,
             email: email.current.value,
+            ether_address: ether_address.current.value,
             password: password.current.value,
             password2: password2.current.value
           };
-
+        
+        if(!first_name.current.value || !last_name.current.value || !email.current.value || !ether_address || !password || !password2 ){
+            alert("fill in all of the fileds")
+            return
+        }
+        if(!ethers.isAddress(ether_address.current.value)){
+            alert("ehter address invalidate")
+            return
+        }
         setLoading(true)
 
         try {
@@ -48,6 +59,9 @@ export default function Register() {
                 </div>
                 <div className="mb-3">
                     <input type="email" placeholder='Email' autoComplete='off' className='form-control' id="email" ref={email} />
+                </div>
+                <div className="mb-3">
+                    <input type="text" placeholder='Ether Wallet Address' autoComplete='off' className='form-control' id="ehter_address" ref={ether_address} />
                 </div>
                 <div className="mb-3">
                     <input type="password" placeholder='Password' autoComplete='off' className='form-control' id="password" ref={password} />

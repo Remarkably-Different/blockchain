@@ -18,6 +18,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def save(self):
         user = get_user_model()(
             email=self.validated_data["email"],
+            ether_address=self.validated_data["ether_address"],
             first_name=self.validated_data["first_name"],
             last_name=self.validated_data["last_name"],
         )
